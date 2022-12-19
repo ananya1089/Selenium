@@ -38,11 +38,11 @@ class Test_Main(BaseClass):
         for dept_time in dep_time:
             d_time=dept_time.text
 
-        e = {"name":names,
+        dic = {"name":names,
              "arrival_time":arr_time,
              "duration":du_time,
              "dep_time":d_time}
-        print(e)
+        print(dic)
 
 
 
