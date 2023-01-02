@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 class Home_page:
     def __init__(self, driver):
         self.driver = driver
-
+    radio_btn = (By.CSS_SELECTOR, ".selected")
     pop_up = (By.CSS_SELECTOR, ".loginModal.displayBlock.modalLogin.dynHeight.personal")
     from_btn = (By.CSS_SELECTOR, "label[for='fromCity']")
     from_city = (By.CSS_SELECTOR, "input[placeholder='From']")
@@ -13,6 +13,8 @@ class Home_page:
     to_input_city_name = (By.CSS_SELECTOR, "input[placeholder='To']")
     to_city_btn = (By.XPATH, "//p[normalize-space()='Pune, India']")
 
+    def get_radio_btn(self):
+        return self.driver.find_element(*Home_page.radio_btn)
     def get_pop_up(self):
         return self.driver.find_element(*Home_page.pop_up)
 

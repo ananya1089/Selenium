@@ -8,6 +8,7 @@ class Search_Flight:
     search_key = (By.CSS_SELECTOR, ".primaryBtn.font24.latoBold.widgetSearchBtn")
     page_pop_up = (By.CSS_SELECTOR, ".bgProperties.icon20.overlayCrossIcon")
 
+
     def get_search_key(self):
         return self.driver.find_element(*Search_Flight.search_key)
 

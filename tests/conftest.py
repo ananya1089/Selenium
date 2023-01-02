@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.service import Service
 
 def pytest_addoption(parser):
     parser.addoption("--browser_name", action="store", default="chrome"),
-    parser.addoption("--username", action="store", default="23564159"),
+    parser.addoption("--username", action="store", default="ananya.dutta0303@gmail.com"),
 
     parser.addoption(
         "--password", action="store", default="abcd@1234"

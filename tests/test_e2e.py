@@ -1,18 +1,19 @@
-from pprint import pprint
-
-from selenium.webdriver.common.by import By
+import time
 
 from page_obj.Flight_details import Flight_details
 from page_obj.Home_page import Home_page
-from page_obj.search_flights import Search_Flight
-from utilities.BaseClass import BaseClass
+from page_obj.Login_page import Login_page
 
+from page_obj.search_flights import Search_Flight
+
+from utilities.BaseClass import BaseClass
 
 
 class Test_Main(BaseClass):
     def test_mmt(self):
         home_page = Home_page(self.driver)
         home_page.get_pop_up().click()
+        home_page.get_radio_btn().click()
         home_page.get_from_btn().click()
         home_page.get_from_city().send_keys("Kolkata, India")
         home_page.get_input_btn().click()
@@ -23,46 +24,31 @@ class Test_Main(BaseClass):
         search_flight.get_search_key().click()
         self.element_wait_clickable(search_flight.page_pop_up)
         search_flight.get_page_pop_up().click()
+
         flight_details = Flight_details(self.driver)
-        # flight_name = flight_details.get_list_of_flights()
-        listofFlights = self.driver.find_elements(By.XPATH, "//div[@class='makeFlex align-items-center gap-x-10 airline-info-wrapper']")
-        f_name=[]
-        for flights in listofFlights:
-            names=flights.text
-            # print(names)
-            f_name.append(names)
+        flight_details.get_flight_details(index=0)
 
-        arrival_time = self.driver.find_elements(By.XPATH, "//div[@class='flexOne timeInfoLeft']")
-        f_arr_time =[]
-        for time in arrival_time:
-           arr_time = time.text
+        flight_list = []
+        total_container = flight_details.get_total_container()
+        for i in range(total_container):
+            flight_list.append(flight_details.get_flight_details(i))
+        print(len(flight_list))
+        print(flight_list)
+        print(flight_list[0]['price'])
+        flight_details.get_price_list()
+        # flight_details.get_view_price()
+        flight_details.get_view_price().click()
 
-           f_arr_time.append(arr_time)
+        # self.element_wait_clickable(flight_details.book_now)
 
+        flight_details.get_book_now()
+        # self.prsence_of_element(flight_details.book_now)
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        login_page = Login_page(self.driver)
 
-        duration = self.driver.find_elements(By.XPATH, "//div[@class='stop-info flexOne']")
-        f_duration_time = []
-        for f_duration in duration:
-           du_time = f_duration.text
-           f_duration_time.append(du_time)
-        dep_time = self.driver.find_elements(By.XPATH, "//div[@class='flexOne timeInfoRight']")
-        f_dep_time = []
-        for dept_time in dep_time:
-            d_time=dept_time.text
-            f_dep_time.append(d_time)
-
-        dic = {"name":f_name,
-             "arrival_time":f_arr_time,
-             "duration":f_duration_time,
-             "dep_time":f_dep_time}
-        pprint(dic)
-
-
-
-
-
-
-
+        self.prsence_of_element(login_page.login_btn)
+        login_page.get_login_btn().click()
+        time.sleep(10)
 
 
 
